@@ -1,0 +1,14 @@
+<form method="post">
+  {% csrf_token %}
+  <label>Withdraw Amount (Rs):</label>
+  <input type="number" name="amount" required>
+
+  <label>Easypaisa Number:</label>
+  <input type="text" name="easypaisa_number" required>
+
+  <div>{{ captcha_code }}</div>
+  <label>Enter Captcha:</label>
+  <input type="text" name="captcha_answer" required>
+
+  <button type="submit">Verify & Withdraw</button>
+</form>

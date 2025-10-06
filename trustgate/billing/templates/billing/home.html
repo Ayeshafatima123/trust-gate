@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><body style="font-family:Arial;padding:40px">
+  <h2>Billing</h2>
+  <p>Current plan: <b>{{ sub.plan.name }}</b> (status: {{ sub.status }})</p>
+  <h3>Upgrade</h3>
+  {% for p in plans %}
+    <div style="margin:8px 0;padding:10px;border:1px solid #ddd;border-radius:8px;max-width:420px">
+      <b>{{ p.name }}</b> • Captcha/month: {{ p.monthly_quota_captcha }} • API/month: {{ p.monthly_quota_api }}
+      {% if p.code == "pro" %}
+        <div><a href="{% url 'upgrade_pro' %}">Go Pro</a></div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <p><a href="/">← Home</a></p>
+</body></html>

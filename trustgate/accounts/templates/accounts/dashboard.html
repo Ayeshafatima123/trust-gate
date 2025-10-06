@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Account – TrustGate</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.12);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(6px);
+            max-width: 600px;
+            margin: 80px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        a:hover {
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome to Your Account 🎉</h1>
+
+        {% if user.is_authenticated %}
+            <p>Hello, <b>{{ user.username }}</b> 👋</p>
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+            <a href="/">Home</a>
+        {% else %}
+            <p>You are not logged in.</p>
+            <a href="{% url 'accounts:login' %}">Login</a>
+            <a href="{% url 'accounts:signup' %}">Sign up</a>
+        {% endif %}
+    </div>
+</body>
+</html>

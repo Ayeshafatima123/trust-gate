@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Billing 💳</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
+      --glass: rgba(255,255,255,.12);
+      --glass-border: rgba(255,255,255,.25);
+      --text:#ffffff;
+      --accent:#00e5ff;
+      --accent-2:#ffd166;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(255,255,255,.08), transparent 60%),
+                  radial-gradient(900px 700px at -10% 110%, rgba(255,255,255,.06), transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center; padding:40px 18px;
+    }
+
+    .wrap{width:100%; max-width:1100px; margin:0 auto;}
+    header{
+      text-align:center; margin-bottom:26px;
+    }
+    header h1{
+      margin:0 0 14px; font-size: clamp(28px, 4vw, 40px); letter-spacing:.4px;
+    }
+    .intro{
+      margin:0 auto 26px; max-width:950px; font-size: clamp(15px, 1.7vw, 18px); line-height:1.7;
+      background: var(--glass); border:1px solid var(--glass-border);
+      padding:18px 20px; border-radius:16px; backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .intro b{color:var(--accent-2)}
+    .plans{
+      display:grid; gap:18px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 6px;
+    }
+    .card{
+      background: var(--glass);
+      border:1px solid var(--glass-border);
+      border-radius:18px; padding:20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,.35); }
+    .card h2{ margin:0 0 8px; font-size:22px; }
+    .meta{ opacity:.9; margin:6px 0 14px; font-size:14px}
+    .price{ font-size:18px; margin:0 0 12px }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px; min-height:42px; padding:10px 16px; width:100%;
+      border:0; border-radius:12px; cursor:pointer; font-weight:600; font-size:15px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color:white; transition: filter .2s ease, transform .08s ease;
+    }
+    .btn:hover{ filter:brightness(1.05); }
+    .btn:active{ transform: translateY(1px); }
+    .btn[disabled]{ opacity:.65; cursor:not-allowed; background:linear-gradient(135deg, #6c757d, #495057); }
+
+    .footer-link{
+      display:inline-block; margin-top:22px; color:var(--accent-2); text-decoration:none; font-size:14px;
+    }
+    .footer-link:hover{ text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Billing 💳</h1>
+      <p class="intro">
+        Welcome! Yahaan aap apni subscriptions manage kar sakte hain, invoices dekh sakte hain,
+        aur secure payments complete kar sakte hain. Hum <b>Easypaisa 📱</b> support karte hain —
+        bas plan select karein aur “Pay with Easypaisa” pe click karen. Aap kabhi bhi Free, Basic
+        ya Pro plans ke darmiyan upgrade/downgrade kar sakte hain — simple, transparent, aur
+        hustle-free billing so you can focus on growth.
+      </p>
+
+      {% if subscription %}
+        <p class="intro" style="margin-top:0">
+          Your current plan: <b>{{ subscription.plan.name }}</b>
+        </p>
+      {% endif %}
+    </header>
+
+    <section class="plans">
+      {% for plan in plans %}
+        <div class="card">
+          <h2>{{ plan.name }}</h2>
+          <p class="meta">{{ plan.monthly_quota_captcha }} captchas / month</p>
+          <p class="price">Rs. {{ plan.price }}</p>
+
+          {% if subscription and subscription.plan.id == plan.id %}
+            <button class="btn" disabled>Current Plan ✅</button>
+          {% else %}
+            {% if user.is_authenticated %}
+              <form action="{% url 'billing:easypaisa_checkout' plan.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn">Pay with Easypaisa 📱</button>
+              </form>
+            {% else %}
+              <a class="btn" href="{% url 'accounts:login' %}">Login to pay with Easypaisa</a>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+
+    <div style="text-align:center">
+      <a class="footer-link" href="{% url 'home' %}">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
+
+

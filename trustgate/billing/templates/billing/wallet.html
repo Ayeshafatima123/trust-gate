@@ -1,0 +1,13 @@
+<h2>Wallet Dashboard 💰</h2>
+<p>Balance: Rs. {{ wallet.balance }}</p>
+
+<form method="post" action="{% url 'billing:withdraw' %}">
+  {% csrf_token %}
+  <input type="number" name="amount" placeholder="Amount" required>
+  <input type="text" name="easypaisa_number" placeholder="Easypaisa Number" required>
+  <button type="submit">Withdraw</button>
+</form>
+
+{% if message %}
+  <p>{{ message }}</p>
+{% endif %}

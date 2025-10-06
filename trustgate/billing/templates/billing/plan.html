@@ -1,0 +1,28 @@
+<h2>Billing 💳</h2>
+<p>Welcome! Yahaan aap apni subscriptions manage kar sakte hain...</p>
+
+{% for plan in plans %}
+  <div>
+    <h3>{{ plan.name }}</h3>
+    <p>{{ plan.captcha_limit }} captchas / month</p>
+    <p>Rs. {{ plan.price }}</p>
+
+    {% if plan.price > 0 %}
+      <form method="post" action="{% url 'billing:upgrade_plan' plan.id %}">
+        {% csrf_token %}
+        <input type="text" name="phone" placeholder="Easypaisa number" required>
+        <button type="submit">Pay with Easypaisa 📱</button>
+      </form>
+    {% else %}
+      <p>Free plan activated automatically</p>
+    {% endif %}
+  </div>
+{% endfor %}
+<h2>Free</h2>
+<p>50 captchas / month</p>
+<p>Rs. 0</p>
+
+<form method="post" action="{% url 'activate_free_plan' %}">
+    {% csrf_token %}
+    <button type="submit">Activate Free Plan ✅</button>
+</form>

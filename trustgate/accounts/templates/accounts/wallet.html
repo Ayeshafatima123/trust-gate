@@ -1,0 +1,27 @@
+<h2>My Wallet</h2>
+
+<p><strong>Username:</strong> {{ request.user.username }}</p>
+<p><strong>Current Balance:</strong> Rs {{ wallet.balance }}</p>
+
+<hr>
+
+<h3>📝 Earning History</h3>
+<table border="1" cellpadding="6">
+  <tr>
+    <th>Date</th>
+    <th>Captcha Question</th>
+    <th>Reward</th>
+  </tr>
+  {% for s in submissions %}
+  <tr>
+    <td>{{ s.created_at }}</td>
+    <td>{{ s.task.question }}</td>
+    <td>Rs {{ s.reward }}</td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="3">No earnings yet. Solve captchas to earn!</td>
+  </tr>
+  {% endfor %}
+</table>
+

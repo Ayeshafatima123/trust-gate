@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustGate – SaaS</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, Arial, sans-serif;
+            color: #fff;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.45);
+            padding: 32px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(6px);
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            margin: 6px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to TrustGate 🔐</h1>
+    <p>
+        TrustGate brings you secure Captcha verification, simple billing, and public APIs.  
+        Protect your apps from bots, manage accounts, and keep your users safe. 🚀
+    </p>
+    <div class="nav-links">
+      <a href="{% url 'captcha_page' %}">Captcha Test</a>
+      <a href="/billing/">Billing</a>
+      <a href="/api/">API Docs</a>
+      {% if user.is_authenticated %}
+        <a href="/accounts/login/">Login</a>
+        <a href="/accounts/signup/">Sign up</a>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

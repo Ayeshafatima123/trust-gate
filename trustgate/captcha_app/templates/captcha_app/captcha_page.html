@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solve Captcha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(0,0,0,0.6);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            width: 350px;
+            text-align: center;
+        }
+        h1 { margin-bottom: 20px; }
+        input, .captcha {
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        button {
+            background: #00e676;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #000;
+        }
+        button:hover { background: #00c853; }
+        .success { color: #00e676; font-weight: bold; }
+        .error { color: #ff5252; font-weight: bold; }
+        .field-error { color: #ffd1d1; font-size: 12px; margin-top: -6px; }
+        .hint { font-size: 12px; opacity: 0.85; }
+        .captcha img { display:block; margin: 8px auto; border-radius: 6px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Solve Captcha</h1>
+    <p>{{ task.question }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="task_id" value="{{ task.id }}">
+
+        <!-- Answer field from form -->
+        {{ form.answer }}
+
+        <!-- Captcha (image + input + hidden hashkey) -->
+        <div class="captcha">
+            {{ form.captcha }}
+            {% if form.errors.captcha %}
+                <div class="field-error">{{ form.errors.captcha|striptags }}</div>
+            {% endif %}
+            <div class="hint">If unreadable, reload the page to get a new captcha.</div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if submission %}
+        {% if submission.correct %}
+            <p class="success">✅ Correct! Rs. {{ submission.reward }} added to your wallet.</p>
+        {% else %}
+            <p class="error">❌ Wrong answer, try again.</p>
+        {% endif %}
+    {% endif %}
+</div>
+</body>
+</html>

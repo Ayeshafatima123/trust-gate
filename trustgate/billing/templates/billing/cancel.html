@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Cancelled</title>
+</head>
+<body style="text-align:center; font-family:Arial;">
+  <h1>❌ Payment Cancelled</h1>
+  <p>Your subscription upgrade was cancelled.</p>
+  <a href="{% url 'billing' %}">← Back to Billing</a>
+</body>
+</html>
+<h1>❌ Payment Failed!</h1>
+<p>Please try again.</p>
+<a href="{% url 'billing' %}">← Retry</a>
+<h1>❌ Payment Cancelled</h1>
+<p>You did not complete the payment.</p>
+<a href="{% url 'home' %}">Go back home</a>

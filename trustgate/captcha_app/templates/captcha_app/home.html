@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustGate – SaaS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(-45deg, #ff6a00, #ee0979, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            margin: 30px 0 10px;
+            font-size: 48px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #ffd166;
+        }
+
+        p {
+            max-width: 850px;
+            margin: 20px auto;
+            line-height: 1.7;
+            font-size: 18px;
+            text-align: center;
+            color: #f1f1f1;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            background: rgba(255,255,255,0.12);
+            padding: 12px 22px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.15);
+            padding: 28px 32px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            margin: 30px auto;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        a.start-link {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: #06d6a0;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        a.start-link:hover {
+            background: #05b386;
+        }
+    </style>
+</head>
+<body>
+    <h1>TrustGate 🛡️</h1>
+
+    <div class="card">
+        <p>
+            TrustGate is designed with security as its first priority. It protects your platform from bots 🚫🤖 
+            and ensures only real human users can access sensitive areas like login, registration, billing, and API usage. 
+            With <b>captcha verification</b>, your app becomes safer, smarter, and more secure 🔐.
+        </p>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'captcha_app:captcha_page' %}">Captcha Test</a></li>
+                <li><a href="{% url 'captcha_app:success' %}">Success Page</a></li>
+                <li><a href="/billing/">Billing 💳</a></li>
+                <li><a href="/api/">API Docs</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/accounts/logout/">Logout</a></li>
+                {% else %}
+                    <li><a href="/accounts/login/">Login</a></li>
+                    <li><a href="/accounts/signup/">Sign up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <h2>Welcome to Captcha App</h2>
+    <p><a class="start-link" href="{% url 'captcha_app:solve_captcha' 1 %}">🚀 Start with Captcha #1</a></p>
+</body>
+</html>

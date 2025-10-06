@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+</head>
+<body>
+  <h1>Checkout: {{ plan.name }}</h1>
+  <p>Price: Rs. {{ plan.price }}</p>
+  <p>Captchas per month: {{ plan.monthly_quota_captcha }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Payment with Easypaisa 📱</button>
+  </form>
+
+  <p><a href="{% url 'billing:billing_home' %}">← Back to Billing</a></p>
+</body>
+</html>

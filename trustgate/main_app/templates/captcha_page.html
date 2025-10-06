@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Captcha</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #2c3e50;
+        }
+        p {
+            max-width: 600px;
+            margin: 15px auto;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+        button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h2>Captcha Verification 🔒</h2>
+    <p>Please complete the captcha challenge to prove you’re human. 
+       This step protects your account and ensures TrustGate stays secure. 🚀</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit ✅</button>
+    </form>
+</body>
+</html>
+

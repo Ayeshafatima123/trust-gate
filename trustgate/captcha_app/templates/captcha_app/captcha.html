@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Captcha Verification</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px;
+            border-radius: 16px;
+            width: 360px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0,255,255,0.2);
+        }
+
+        h2 {
+            color: #00e6e6;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .captcha {
+            background: linear-gradient(135deg, #00e6e6, #00ff99);
+            color: #000;
+            font-weight: bold;
+            font-size: 22px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            letter-spacing: 4px;
+            box-shadow: 0 0 12px rgba(0,255,200,0.5);
+        }
+
+        input {
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            border: none;
+            margin-top: 12px;
+            text-align: center;
+            font-size: 15px;
+            outline: none;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: #bbb;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #00ffcc, #0099ff);
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 12px rgba(0,255,200,0.4);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #00e6b8, #0077cc);
+            box-shadow: 0 0 16px rgba(0,255,200,0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🔒 Captcha Verification</h2>
+        <p>
+            Please complete the captcha challenge to prove you’re human.  
+            This step protects your account and ensures TrustGate stays secure. 🚀
+        </p>
+
+        <div class="captcha">{{ captcha_text }}</div>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="captcha_input" placeholder="Enter captcha" required>
+            <button type="submit">Submit ✅</button>
+        </form>
+    </div>
+</body>
+</html>
